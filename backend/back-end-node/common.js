@@ -18,17 +18,14 @@ export function success(body) {
 // s
 
 function buildResponse(statusCode, body) {
-    console.log('-------------------------------------');
     console.log(body);
     return {
         statusCode: statusCode,
         headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Methods": "*",
-            "X-Requested-With": "*",
-            "Access-COntrol-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"
+            "Access-Control-Allow-Methods": "*"
         },
-        data: JSON.stringify(body)
+        body: JSON.stringify(body)
     };
 }

@@ -1,0 +1,23 @@
+{
+  "name": "back-end-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "jquery": "^3.2.1",
+    "lodash.keyby": "^4.6.0",
+    "node-sp-auth": "^2.3.4",
+    "npm-check-updates": "^3.1.5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
