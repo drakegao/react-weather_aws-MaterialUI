@@ -18,7 +18,6 @@ const styles = {
 };
 
 function WeatherDetail(props) {
-    console.log(props);
     const { classes } = props;
     return (
         <div>

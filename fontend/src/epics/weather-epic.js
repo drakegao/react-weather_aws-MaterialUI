@@ -25,6 +25,16 @@ var getWeatherData = (payload) => {
     );
 };
 
+var parseLambdaData = (parseDatadata) => {
+    var parseData = data;
+    parseData = parseData.replace(/\\\"/g, '"');
+    parseData = parseData.replace(/\"\[/g, '[');
+    parseData = parseData.replace(/\]\"/g, ']');
+    parseData = parseData.replace("data", '"data"');
+    parseData = JSON.parse(parseData);
+    return parseData;
+}
+
 const getWeatherDataEpic = action$ => {
     return action$.pipe(
         ofType(actions.getWeatherData.getType()),
@@ -35,8 +45,10 @@ const getWeatherDataEpic = action$ => {
         first(),
         mergeMap(response => {
             console.log('from weather epic');
-            console.log(typeof response.data);
-            return RXJS.of(actions.getWeatherDataEpic(response.data));
+            console.log(response.data);
+            var data = parseLambdaData(response.data);
+            
+            return RXJS.of(actions.getWeatherDataEpic(data));
         })
     );
 }

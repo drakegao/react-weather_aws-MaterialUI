@@ -6,7 +6,6 @@ const getWeatherData = createAction('get weather data', (data) => {
 });
 
 const getWeatherDataEpic = createAction('get weather data epic', (weatherData) => {
-        console.log(weatherData);
         return weatherData; 
 });
 

@@ -22,8 +22,6 @@ const getWeatherData = (event, context, callback) => {
         if(ret.length > 0) {
             var response = success(ret);
             console.log('---------before sending response-------------');
-            console.log(context);
-            context.succeed(response);
             callback(null, response);
         } else {
             callback(null, failure({status: false, error:"Error on loading"}));
