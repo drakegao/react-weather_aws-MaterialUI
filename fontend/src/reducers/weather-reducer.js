@@ -6,10 +6,12 @@ import actions from '../actions/weather-action';
 const DEFAULT_STATE = fromJS({
 });
 
-var filterWeatherData = (data) => {
+var filterWeatherData = (dataRet) => {
     console.log('filterweatherdata');
-    console.log(data['headers']);
+    console.log(data);
+    //console.log(data['headers']);
     let list = [];
+    var data = dataRet.data;
     list = data.map((d) => {
         let w = {
             icon: d.icon,

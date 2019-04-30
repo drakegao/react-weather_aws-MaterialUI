@@ -35,8 +35,15 @@ const getWeatherDataEpic = action$ => {
         first(),
         mergeMap(response => {
             console.log('from weather epic');
-            console.log(typeof response.data);
-            return RXJS.of(actions.getWeatherDataEpic(response.data));
+            console.log(response.data);
+            var data = response.data;
+            data = data.replace(/\\\"/g, '"');
+            data = data.replace(/\"\[/g, '[');
+            data = data.replace(/\]\"/g, ']');
+            data = data.replace("data", '"data"');
+            data = JSON.parse(data);
+            console.log(data);
+            return RXJS.of(actions.getWeatherDataEpic(data));
         })
     );
 }
