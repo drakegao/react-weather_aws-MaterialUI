@@ -16,6 +16,9 @@ const getWeatherData = (event, context, callback) => {
             d.description = data.data.list[i].weather[0].description;
             d.id = data.data.list[i].weather[0].id;
             d.main = data.data.list[i].weather[0].main;
+            d.time = new Date(parseFloat(data.data.list[i].dt)).toDateString();
+            d.city = data.data.city.name;
+
 
             ret.push(d);
         }

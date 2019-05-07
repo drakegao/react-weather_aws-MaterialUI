@@ -3,7 +3,8 @@ import { fromJS, Map } from 'immutable';
 
 const DEFAULT_STATE = fromJS({
     'weather': {
-        status: 'NONE'
+        status: 'NONE',
+        hasDetail: false
     }
 });
 

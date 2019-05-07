@@ -22,7 +22,16 @@ const getWeatherStatus = createSelector(
     }
 );
 
+const getHasWeather = createSelector(
+    getWeatherAllState,
+    (weather) => {
+        console.log('has detail selector action');
+        return weather.get('hasDetail');
+    }
+);
+
 export default  {
+    getHasWeather,
     getWeatherState,
     getWeatherStatus
 };

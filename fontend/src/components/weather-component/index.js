@@ -7,7 +7,8 @@ import Weather from './weather';
 
 const mapStateToProps = (state) => ({
     weatherData: weatherSelector.getWeatherState(state),
-    status: weatherSelector.getWeatherStatus(state)
+    status: weatherSelector.getWeatherStatus(state),
+    getHasWeather: weatherSelector.getHasWeather(state)
 });
 const matchDispatchToProps = (dispatch, ownProps) => {
     return bindActionCreators({

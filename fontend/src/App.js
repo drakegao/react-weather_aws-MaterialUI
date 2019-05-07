@@ -3,10 +3,10 @@ import { withStyles } from '@material-ui/core/styles';
 import './App.css';
 import Route from './route/index';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faSearch, faBars, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faSearch, faBars, faArrowLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter } from 'react-router-dom';
 
-library.add([faHome, faSearch, faBars, faArrowLeft]);
+library.add([faHome, faSearch, faBars, faArrowLeft, faChevronDown]);
 
 const styles = {
   root: {

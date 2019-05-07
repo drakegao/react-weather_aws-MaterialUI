@@ -1,14 +1,14 @@
 //import _forEach from 'lodash/forEach';
 import { fromJS } from 'immutable';
 import { createReducer } from 'redux-act';
-import actions from '../actions/weather-action';
+import singleWeatherActions from '../actions/single-weather-action';
+import weatherActions from '../actions/weather-action';
 
 const DEFAULT_STATE = fromJS({
 });
 
 var filterWeatherData = (dataRet) => {
     console.log('filterweatherdata');
-    console.log(data);
     //console.log(data['headers']);
     let list = [];
     var data = dataRet.data;
@@ -17,21 +17,33 @@ var filterWeatherData = (dataRet) => {
             icon: d.icon,
             description: d.description,
             id: d.id,
-            main: d.main
+            main: d.main,
+            city: d.city,
+            time: d.time
         };
         return w;
     });
+    console.log(list);
     return fromJS(list);
 }
 
 export default createReducer({
-    [actions.getWeatherDataEpic]: (state, payload) => {
+    // this is setter, not getter
+    [weatherActions.getWeatherDataEpic]: (state, payload) => {
         return state.set('weathers', filterWeatherData(payload))
                     .set('status', 'LOADED');
     },
-    [actions.setWeatherStatus]: (state, payload) => {
-        console.log(payload);
+    [singleWeatherActions.getHasDetail]: (state, payload) => {
+
+    },
+    [weatherActions.setWeatherStatus]: (state, payload) => {
         return state.set('status', payload);
+    },
+    [singleWeatherActions.setHasDetail]: (state, payload) => {
+        console.log(`set has detail ---- ${payload}`);
+        let ret = state.set('hasDetail', payload);
+        console.log(ret.toJS());
+        return ret;
     }
 }, DEFAULT_STATE);
 

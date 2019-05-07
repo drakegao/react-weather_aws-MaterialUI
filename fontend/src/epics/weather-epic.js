@@ -26,7 +26,7 @@ var getWeatherData = (payload) => {
 };
 
 var parseLambdaData = (parseDatadata) => {
-    var parseData = data;
+    var parseData = parseDatadata;
     parseData = parseData.replace(/\\\"/g, '"');
     parseData = parseData.replace(/\"\[/g, '[');
     parseData = parseData.replace(/\]\"/g, ']');
@@ -36,16 +36,15 @@ var parseLambdaData = (parseDatadata) => {
 }
 
 const getWeatherDataEpic = action$ => {
+    console.log('get weather epic in epic');
     return action$.pipe(
         ofType(actions.getWeatherData.getType()),
         switchMap(action => {
             console.log(action);
             return getWeatherData(action.payload);
         }),
-        first(),
         mergeMap(response => {
             console.log('from weather epic');
-            console.log(response.data);
             var data = parseLambdaData(response.data);
             
             return RXJS.of(actions.getWeatherDataEpic(data));

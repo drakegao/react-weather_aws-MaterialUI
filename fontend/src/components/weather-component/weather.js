@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import WeatherDetailComponent from '../weather-details-component/weather-details-component';
 import { 
     withStyles,
     Typography,
@@ -7,8 +9,7 @@ import {
     TextField,
     MenuItem
 } from '@material-ui/core';
-import WeatherDetail from '../weather-details-component/weather-details';
-import States from '../../meta-data/states';
+import SingleWeatherCard from '../single-weather-card-component/index';
 
 const styles = theme => ({
     root: {
@@ -30,7 +31,8 @@ class Weather extends Component {
     state = {
         hasTodayWeather: "",
         city: "",
-        country: ""
+        country: "",
+        hasDetail: false
     };
 
     componentDidlUpdate = (nextProps) => {
@@ -65,6 +67,7 @@ class Weather extends Component {
     }
 
     searchWeather = () => {
+        console.log("click");
         let data = {
             city: this.state.city,
             country: this.state.country
@@ -78,30 +81,64 @@ class Weather extends Component {
         }
     }
 
-    renderWeatherCards = () => {
+    // renderWeatherCards = () => {
+    //     let count = 0;
+    //     return this.props.weatherData.map((singleWeather) => {
+    //         count++
+    //         return (
+    //             <Grid key={count} item xs={12} md={4}>
+    //                 <SingleWeatherCard
+    //                     icon={singleWeather.icon} 
+    //                     main={singleWeather.main} 
+    //                     description={singleWeather.description} 
+    //                     match={this.props.match}
+    //                 />
+    //             </Grid>
+    //         );
+    //     })
+    // }
+
+    renderWeatherCardsList = () => {
         let count = 0;
+
         return this.props.weatherData.map((singleWeather) => {
-            count++
-            return (
-                <Grid key={count} item xs={12} md={4}>
-                    <WeatherDetail
+            count++;
+            //console.log(singleWeather);
+            return(
+                // <Grid key={count} item xs={12} md={12}>
+                    <SingleWeatherCard key={count}
                         icon={singleWeather.icon} 
                         main={singleWeather.main} 
-                        description={singleWeather.description} 
+                        description={singleWeather.description}
+                        city={singleWeather.city}
+                        time={singleWeather.time}
+                        match={this.props.match}
                     />
-                </Grid>
+                // </Grid>
             );
-        })
+        });  
+    }
+
+    renderWeatherDetails = () => {
+        return (
+            (this.props.hasDetail)
+            ? 
+            <WeatherDetailComponent />
+            :
+            <Typography variant="display4" component="h4">
+                Select a weather to check the details
+            </Typography> 
+        );
     }
 
     render() {
         const { classes, theme } = this.props;
+
         return(
             <div>
                 <Typography gutterBottom variant="h5" component="h2">
-                    Today's weather, status: {this.props.status}
+                    Today's weather, status: {this.props.status}, hasWeather: {this.props.getHasWeather ? "yes" : "no"}
                 </Typography>
-
                 <Grid container spacing = {16}>
                     <Grid item xs={12}>
                         <TextField
@@ -136,13 +173,30 @@ class Weather extends Component {
                    (this.props.status === 'LOADED')
                    ? 
                    <Fragment>
-                        <Grid container spacing = {16}>
-                            { this.renderWeatherCards() }
+
+                        <Grid container alignItems="flex-start" justify="space-around" spacing={16} >    
+                            <Grid item lg={4} sm={12}>
+                                {/* <Grid container alignItems="flex-start" justify="space-around" spacing={16} >   */}
+                                { this.renderWeatherCardsList() }
+                                {/* </Grid> */}
+                            </Grid>
+                            <Grid item md={8} sm={12}>
+                                {/* for weather details */}
+                               
+                                {this.renderWeatherDetails()} 
+                                   
+                            </Grid>
                         </Grid>
+
                    </Fragment>
                    :
                    'no weather data'
                 }               
+
+                <Switch>
+                    <Route path={`${this.state.currentUrl}/weatherdetail`} component={WeatherDetailComponent} />
+                </Switch>
+
             </div>
         )
     }
