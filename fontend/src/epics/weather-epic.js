@@ -45,6 +45,7 @@ const getWeatherDataEpic = action$ => {
         }),
         mergeMap(response => {
             console.log('from weather epic');
+
             var data = parseLambdaData(response.data);
             
             return RXJS.of(actions.getWeatherDataEpic(data));

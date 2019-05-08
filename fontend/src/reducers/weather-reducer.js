@@ -9,6 +9,8 @@ const DEFAULT_STATE = fromJS({
 
 var filterWeatherData = (dataRet) => {
     console.log('filterweatherdata');
+    console.log(data);
+
     //console.log(data['headers']);
     let list = [];
     var data = dataRet.data;
